@@ -400,7 +400,7 @@ public class AlumnoUI extends javax.swing.JFrame {
 
     private void ComboTipoDaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboTipoDaoActionPerformed
        TxtPanel.setVisible(ComboTipoDao.getSelectedIndex() == 0);
-       TxtPanel.setVisible(ComboTipoDao.getSelectedIndex() == 1);
+       SqlPanel.setVisible(ComboTipoDao.getSelectedIndex() == 1);
     }//GEN-LAST:event_ComboTipoDaoActionPerformed
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
