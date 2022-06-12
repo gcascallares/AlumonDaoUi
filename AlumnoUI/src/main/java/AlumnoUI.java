@@ -40,10 +40,6 @@ public class AlumnoUI extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        ComboTipoDao.removeAllItems();
-        ComboTipoDao.addItem("TXT");
-        ComboTipoDao.addItem("SQL");     
-        
         SqlPanel.setVisible(false);
         
         alumnoModel = new AluTableModel();
@@ -115,7 +111,7 @@ public class AlumnoUI extends javax.swing.JFrame {
 
         FilterPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        ComboTipoDao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboTipoDao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TXT", "SQL" }));
         ComboTipoDao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboTipoDaoActionPerformed(evt);
@@ -304,6 +300,17 @@ public class AlumnoUI extends javax.swing.JFrame {
                 .addGap(33, 33, 33))
         );
 
+        AlumnoTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
         jScrollPane2.setViewportView(AlumnoTable);
 
         javax.swing.GroupLayout GridAlumnosPanelLayout = new javax.swing.GroupLayout(GridAlumnosPanel);
