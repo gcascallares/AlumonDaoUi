@@ -4,6 +4,7 @@
  */
 
 import Class.Alumno;
+import Exception.AlumnoException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -16,17 +17,17 @@ public class AluTableModel extends AbstractTableModel {
 
     private List<Alumno> alumnos;
     
-    public AluTableModel(){
-        alumnos = new ArrayList<>();
+    private static final String[] columnas = {"DNI", "Nombre", "Apellido"};
+
+    public AluTableModel() /*throws AlumnoException*/{
         
-    }
-    
-    public List<Alumno> getAlumnos(){
-        return alumnos;
-    }
-    
-     public void setAlumnos(List<Alumno> list){
-        alumnos = list;
+        alumnos = new ArrayList<>();
+        /*alumnos.add(new Alumno(1111111, "Nombre1", "Apellido 1", null,null,null,null));
+        alumnos.add(new Alumno(2222222, "Nombre2", "Apellido 2", null,null,null,null));
+        alumnos.add(new Alumno(3333333, "Nombre3", "Apellido 3", null,null,null,null));
+        alumnos.add(new Alumno(777777, "Nombre7", "Apellido 7", null,null,null,null));
+        alumnos.add(new Alumno(55555, "Nombre5", "Apellido 5", null,null,null,null));*/
+        
     }
     
     @Override
@@ -36,7 +37,12 @@ public class AluTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return columnas.length;
+    }
+    
+    @Override
+    public String getColumnName(int column) {
+        return columnas[column];
     }
 
     @Override
@@ -52,5 +58,13 @@ public class AluTableModel extends AbstractTableModel {
             default:
                 return null;
         }      
+    }
+    
+    public List<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(List<Alumno> alumnos) {
+        this.alumnos = alumnos;
     }
 }

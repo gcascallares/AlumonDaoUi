@@ -34,21 +34,20 @@ public class AlumnoUI extends javax.swing.JFrame {
     DAO<Alumno, Integer> dao;
     AlumnoDaoTxt daoTxt;
     AlumnoDaoSql daoSql;
-    private AluTableModel aluTableModel;
+    private final AluTableModel alumnoModel;
     
     public AlumnoUI() {
         initComponents();
-        ComboTipoDao.removeAll();
-        ComboTipoDao.addItem("TXT");
-        ComboTipoDao.addItem("SQL");
-        
         setLocationRelativeTo(null);
         
-        TxtPanel.setVisible(false);
+        ComboTipoDao.removeAllItems();
+        ComboTipoDao.addItem("TXT");
+        ComboTipoDao.addItem("SQL");     
+        
         SqlPanel.setVisible(false);
         
-        AlumnoTable.setModel(aluTableModel);
-        
+        alumnoModel = new AluTableModel();
+        AlumnoTable.setModel(alumnoModel);
     }
 
     /**
@@ -143,7 +142,7 @@ public class AlumnoUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TxtPanelLayout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addComponent(LabelPath, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(FileChooser)
                 .addGap(28, 28, 28))
         );
@@ -172,43 +171,45 @@ public class AlumnoUI extends javax.swing.JFrame {
 
         jLabel4.setText("pass:");
 
-        TextConnection.setText("jTextField1");
         TextConnection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextConnectionActionPerformed(evt);
             }
         });
 
-        TextPass.setText("jTextField1");
-
-        TextUser.setText("jTextField1");
+        TextPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextPassActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout SqlPanelLayout = new javax.swing.GroupLayout(SqlPanel);
         SqlPanel.setLayout(SqlPanelLayout);
         SqlPanelLayout.setHorizontalGroup(
             SqlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SqlPanelLayout.createSequentialGroup()
-                .addGroup(SqlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(SqlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(SqlPanelLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(SqlPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SqlPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(TextConnection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(TextUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(37, 37, 37)
+                        .addComponent(TextConnection)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TextUser, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(SqlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(SqlPanelLayout.createSequentialGroup()
-                        .addComponent(TextPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(SqlPanelLayout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ConectButton)
-                        .addGap(49, 49, 49))))
+                        .addGap(49, 49, 49))
+                    .addGroup(SqlPanelLayout.createSequentialGroup()
+                        .addComponent(TextPass, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         SqlPanelLayout.setVerticalGroup(
             SqlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,16 +232,18 @@ public class AlumnoUI extends javax.swing.JFrame {
         FilterPanel.setLayout(FilterPanelLayout);
         FilterPanelLayout.setHorizontalGroup(
             FilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FilterPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(FilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FilterPanelLayout.createSequentialGroup()
+                .addGroup(FilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(TxtPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(FilterPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(31, 31, 31)
-                        .addComponent(ComboTipoDao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(TxtPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SqlPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(FilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(FilterPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(31, 31, 31)
+                                .addComponent(ComboTipoDao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(SqlPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         FilterPanelLayout.setVerticalGroup(
@@ -279,24 +282,20 @@ public class AlumnoUI extends javax.swing.JFrame {
         ButtonsLayout.setHorizontalGroup(
             ButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ButtonsLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
                 .addGroup(ButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ButtonsLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(AddButton))
-                    .addGroup(ButtonsLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(ButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DeleteButton)
-                            .addComponent(UpdateButton)
-                            .addComponent(Select))))
+                    .addComponent(AddButton)
+                    .addComponent(DeleteButton)
+                    .addComponent(UpdateButton)
+                    .addComponent(Select))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         ButtonsLayout.setVerticalGroup(
             ButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ButtonsLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(55, 55, 55)
                 .addComponent(AddButton)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addComponent(UpdateButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Select)
@@ -305,14 +304,6 @@ public class AlumnoUI extends javax.swing.JFrame {
                 .addGap(33, 33, 33))
         );
 
-        AlumnoTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
         jScrollPane2.setViewportView(AlumnoTable);
 
         javax.swing.GroupLayout GridAlumnosPanelLayout = new javax.swing.GroupLayout(GridAlumnosPanel);
@@ -324,7 +315,7 @@ public class AlumnoUI extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Buttons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         GridAlumnosPanelLayout.setVerticalGroup(
             GridAlumnosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,13 +334,12 @@ public class AlumnoUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(GrillaAlumnosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(GridAlumnosPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(FilterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(139, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 71, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(GridAlumnosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FilterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(77, 77, 77))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,8 +379,8 @@ public class AlumnoUI extends javax.swing.JFrame {
            alus.add(new Alumno(3333333, "Nombre3", "Apellido 3", null,null,null,null));
            alus.add(new Alumno(777777, "Nombre7", "Apellido 7", null,null,null,null));
            alus.add(new Alumno(55555, "Nombre5", "Apellido 5", null,null,null,null));
-           aluTableModel.setAlumnos(alus);
-           
+           alumnoModel.setAlumnos(alus);
+           alumnoModel.fireTableDataChanged();
         } catch (DAOFactoryException ex) {
             Logger.getLogger(AlumnoUI.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DAOException ex) {
@@ -416,6 +406,10 @@ public class AlumnoUI extends javax.swing.JFrame {
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UpdateButtonActionPerformed
+
+    private void TextPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextPassActionPerformed
 
     /**
      * @param args the command line arguments
