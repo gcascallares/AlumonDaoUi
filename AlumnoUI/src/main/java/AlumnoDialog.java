@@ -167,7 +167,9 @@ public class AlumnoDialog extends javax.swing.JDialog {
 
     private void AceptarDialogButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         try{
-            //dto.setNombre();
+            dto.setDni(Integer.valueOf(DNITextDialog.getText()));
+            dto.setNombre(NameTextDialog.getText());
+            //dto.setFecNac(new MiCalendar(jDateChooser1.getCalendar()));
             this.dispose();
         }
         catch(Exception ex){

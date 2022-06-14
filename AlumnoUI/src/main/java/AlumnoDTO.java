@@ -21,7 +21,7 @@ public class AlumnoDTO {
 	return fecNac;
     }
 
-    public void setFecIng(MiCalendar fecNac) {
+    public void setFecNac(MiCalendar fecNac) {
 	this.fecNac = fecNac;
     }
     

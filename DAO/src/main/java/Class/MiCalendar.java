@@ -32,6 +32,10 @@ public class MiCalendar extends GregorianCalendar {
 			throw new MiCalendarioException("La fecha es invalida");
 		}
 	}
+        
+        public MiCalendar(Calendar calendar) {
+            setTime(calendar.getTime());
+	}
 	
 	public int getDia(){
 		return this.get(Calendar.DAY_OF_MONTH);
