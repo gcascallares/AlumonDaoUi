@@ -10,6 +10,16 @@ public class Alumno extends Persona {
 	private Integer cantMatAprob;
 	
 	private Double promedio;
+        
+        private boolean activo;
+        
+        public void setActivo(boolean activo){
+            this.activo = activo;
+        }
+        
+        public boolean getActivo(){
+            return activo;
+        }
 
 	/*validar setters*/
 	public MiCalendar getFecIng() {
@@ -48,10 +58,11 @@ public class Alumno extends Persona {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Alumno(Integer dni, String nombre, String apellido, MiCalendar fecNac, MiCalendar fecIng,
+	public Alumno(Integer dni, String nombre, String apellido,boolean activo, MiCalendar fecNac, MiCalendar fecIng,
 			Integer cantMatAprob, Double promedio) throws AlumnoException {
 		super(dni, nombre, apellido, fecNac);
 		this.fecIng = fecIng;
+                this.activo = activo;
 		setPromedio(promedio);
 		setCantMatAprob(cantMatAprob);
 	}
